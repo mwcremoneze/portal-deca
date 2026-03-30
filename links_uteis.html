@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Links Úteis – Portal DECA</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C8A96E;
+    --gold-light: #E8D5AA;
+    --dark: #0D0D0D;
+    --dark2: #161616;
+    --dark3: #1F1F1F;
+    --dark4: #252525;
+    --border: rgba(200,169,110,0.2);
+    --text: #E8E8E0;
+    --muted: #888880;
+    --blue: #4A90D9;
+    --green: #4CAF82;
+    --purple: #9B7FD4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--dark); color: var(--text);
+    font-family: 'DM Sans', sans-serif; min-height: 100vh;
+    padding: 40px 20px; overflow-x: hidden;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 10%, rgba(200,169,110,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 80% 90%, rgba(200,169,110,0.05) 0%, transparent 60%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .wrapper { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+
+  /* Botão voltar */
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--dark2); color: var(--gold);
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+    text-decoration: none; padding: 9px 18px;
+    border-radius: 8px; border: 1px solid rgba(200,169,110,0.3);
+    letter-spacing: 0.04em; margin-bottom: 40px;
+    transition: all 0.2s; display: inline-flex;
+  }
+  .back-btn:hover { background: var(--dark3); border-color: rgba(200,169,110,0.7); }
+  .back-btn svg { width: 14px; height: 14px; }
+
+  /* Header */
+  header { text-align: center; margin-bottom: 48px; }
+  .logo-line { display: flex; align-items: center; justify-content: center; gap: 18px; margin-bottom: 10px; }
+  .logo-line::before, .logo-line::after { content: ''; flex: 1; max-width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold)); }
+  .logo-line::after { background: linear-gradient(to left, transparent, var(--gold)); }
+  h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(32px, 5vw, 50px); letter-spacing: 0.08em; color: var(--gold); line-height: 1; }
+  .subtitle { font-size: 12px; color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 8px; }
+
+  /* Busca */
+  .search-wrap { position: relative; margin-bottom: 36px; }
+  .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 15px; pointer-events: none; }
+  .search-wrap input {
+    width: 100%; padding: 13px 14px 13px 42px;
+    background: var(--dark2); border: 1px solid rgba(200,169,110,0.2);
+    border-radius: 10px; color: var(--text); font-size: 14px;
+    font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s;
+  }
+  .search-wrap input:focus { border-color: rgba(200,169,110,0.55); }
+  .search-results {
+    position: absolute; left: 0; right: 0; top: calc(100% + 6px);
+    background: var(--dark3); border: 1px solid rgba(200,169,110,0.25);
+    border-radius: 10px; overflow: hidden; display: none;
+    max-height: 280px; overflow-y: auto; z-index: 100;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  }
+  .search-results.show { display: block; }
+  .search-item {
+    display: flex; align-items: center; gap: 10px; padding: 11px 16px;
+    text-decoration: none; color: var(--text); transition: background 0.15s;
+    border-bottom: 1px solid rgba(200,169,110,0.07);
+  }
+  .search-item:last-child { border-bottom: none; }
+  .search-item:hover { background: rgba(200,169,110,0.08); }
+  .search-item-cat { font-size: 10px; color: var(--muted); background: var(--dark4); padding: 2px 8px; border-radius: 4px; flex-shrink: 0; white-space: nowrap; }
+  .search-item-name { font-size: 13px; flex: 1; }
+
+  /* Seções */
+  .link-section { margin-bottom: 36px; }
+  .link-section-title {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 14px; padding-bottom: 10px;
+    border-bottom: 1px solid rgba(200,169,110,0.12);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .link-section-title span { font-size: 16px; }
+
+  .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
+
+  .link-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 11px 14px; background: var(--dark2);
+    border: 1px solid rgba(200,169,110,0.08); border-radius: 10px;
+    text-decoration: none; color: var(--text); font-size: 12px; font-weight: 500;
+    transition: all 0.2s; line-height: 1.4;
+  }
+  .link-item:hover { border-color: rgba(200,169,110,0.45); background: rgba(200,169,110,0.06); color: var(--gold-light); transform: translateY(-1px); }
+  .link-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+  .dot-bi { background: var(--blue); }
+  .dot-site { background: var(--green); }
+  .dot-intra { background: var(--purple); }
+
+  footer { text-align: center; margin-top: 52px; font-size: 11px; color: rgba(136,136,128,0.4); letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <a href="index.html" class="back-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Voltar ao Portal
+  </a>
+
+  <header>
+    <div class="logo-line"><h1>Links Úteis</h1></div>
+    <p class="subtitle">Power BI · Sites · Intranet</p>
+  </header>
+
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search-links" placeholder="Buscar painel ou sistema..." oninput="buscarLinks(this.value)" autocomplete="off">
+    <div class="search-results" id="search-results"></div>
+  </div>
+
+  <div class="link-section">
+    <div class="link-section-title"><span>📊</span> Power BI</div>
+    <div class="links-grid" id="grid-bi"></div>
+  </div>
+
+  <div class="link-section">
+    <div class="link-section-title"><span>🌐</span> Sites</div>
+    <div class="links-grid" id="grid-sites"></div>
+  </div>
+
+  <div class="link-section">
+    <div class="link-section-title"><span>🏢</span> Intranet</div>
+    <div class="links-grid" id="grid-intra"></div>
+  </div>
+
+  <footer>Apenas para uso interno · As informações aqui são para auxiliar no dia a dia e não substituem os meios oficiais</footer>
+</div>
+
+<script>
+const LINKS = {
+  bi: [
+    { n: 'Painel Gerencial – Imperdoáveis / Positivação / vs AA', u: 'https://app.powerbi.com/groups/me/reports/d5e213ff-dd9d-41fd-89e9-2abc169c1d04/ReportSection?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+    { n: 'Painel Diário', u: 'https://app.powerbi.com/groups/me/apps/e33a5f63-fa65-4cca-ac79-1636b6c98a34/reports/15c0220a-df9f-47ea-996e-7485f3f1bf4f/ReportSection582608e471ed052660f2?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+    { n: 'Painel Venda do Dia', u: 'https://app.powerbi.com/groups/me/reports/a506d2aa-2482-49d6-9ce3-2484db60e2d0/ReportSectionb946608d365b8a52118a?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+    { n: 'Carteira x Estoque x Lead Time DECA', u: 'https://app.powerbi.com/groups/me/reports/e91a6991-efa0-45e5-9bef-3024f018fd9d/a2a385c03fd7daaa50b0?experience=power-bi' },
+    { n: 'Estoque x Carteira DECA', u: 'https://app.powerbi.com/groups/me/reports/2cef493f-1de6-4929-b6cc-62829f33bb35/0e4c9dd97a95108d512a?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+    { n: 'Pedidos Bloqueados', u: 'https://app.powerbi.com/groups/me/reports/851ab42d-93ab-4d60-9b34-98ee4733c83d/61e87b2fbb179916dafd?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+    { n: 'Reembolso Clientes', u: 'https://app.powerbi.com/groups/me/reports/d77810ed-9c78-4ab4-b726-efb1dedb495e/ReportSectione30e2daa450c2d65d8f6?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+    { n: 'Créditos Disponíveis de Clientes', u: 'https://app.powerbi.com/groups/me/reports/d77810ed-9c78-4ab4-b726-efb1dedb495e/ReportSection5470af28283b4d551486?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+    { n: 'Boletos em Aberto', u: 'https://app.powerbi.com/groups/me/reports/a2a9468f-56b9-4e44-a1c8-24cbc904e67d/c81959d25a68d9ce1325?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+    { n: 'Carteira DECA', u: 'https://app.powerbi.com/groups/me/apps/05b83349-62d3-4701-8071-d1a926eddfac/reports/09e3d3ee-9267-49f2-9598-ccd1356354be/ceca4a83c934d1ccc74f?experience=power-bi' },
+    { n: 'Previsão de Atendimento DECA', u: 'https://app.powerbi.com/groups/me/apps/05b83349-62d3-4701-8071-d1a926eddfac/reports/cdda03eb-e668-490c-bc11-f92bbab1218d/e5fa41281eb0746d24f4?experience=power-bi' },
+    { n: 'Faturamento DECA', u: 'https://app.powerbi.com/groups/me/apps/05b83349-62d3-4701-8071-d1a926eddfac/reports/a86df136-2403-4d70-863b-35c255daa61e/9a49ec8879fded3a07cd?experience=power-bi' },
+    { n: 'Casos em Aberto – Devoluções', u: 'https://app.powerbi.com/groups/me/apps/05b83349-62d3-4701-8071-d1a926eddfac/reports/482beef6-db23-4541-9765-7c8daaff7be7/6c321a5126ae99393389?experience=power-bi' },
+    { n: 'Casos em Aberto – N2', u: 'https://app.powerbi.com/groups/me/apps/05b83349-62d3-4701-8071-d1a926eddfac/reports/61e8ab84-6d21-4f22-8588-d2f12196e880/25d3941eda04a0a41685?experience=power-bi' },
+    { n: 'Onde Comprar DECA', u: 'https://app.powerbi.com/groups/me/reports/d3e5f966-ffe4-4b86-93f2-0897d22ccdf4/ReportSection?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+    { n: 'Painel Cadastro de Produto DECA', u: 'https://app.powerbi.com/groups/me/reports/d3e5f966-ffe4-4b86-93f2-0897d22ccdf4/ReportSection0e3676e2bd0bfa88e1ce?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+    { n: 'Acompanhamento de NF', u: 'https://app.powerbi.com/groups/me/reports/5a11e4c9-eeaa-4b1b-8f62-82676884f1b2/ba21158ec83a5785f3cb?experience=power-bi&clientSideAuth=0' },
+    { n: 'Tracking Utilização Portal B2B', u: 'https://app.powerbi.com/groups/me/reports/fd732ada-d52f-4d9b-91ee-b8f60d99ff0b/3025cb70300d17e02e48?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+    { n: 'Imperdoáveis / Cross-Sell Win Room (Sales Assistant)', u: 'https://app.powerbi.com/groups/7cbe8a52-3dd8-453d-a3db-57aa7135cdeb/reports/7709f057-844b-4e28-b43e-91f3143b7040/69fff8571d7203ea6d4f?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+    { n: 'Painel Limbo / Aprovações', u: 'https://app.powerbi.com/groups/me/reports/a66e0a96-0ffd-42fc-aafd-4c75c9e10f12/86a6b5062a4b66ab107d?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+    { n: 'Acompanhamento PAD', u: 'https://app.powerbi.com/groups/7cbe8a52-3dd8-453d-a3db-57aa7135cdeb/reports/3a941f32-57ed-49c2-bf64-f736b5bbaab9/ReportSection?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+    { n: 'Painel de Verba Utilizada (DG/DD)', u: 'https://app.powerbi.com/groups/me/reports/e33ca360-7258-4d3d-b907-84577db34ced/9cc1404767b9bab237c4?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+    { n: 'Acompanhamento de Meta Cluster', u: 'https://app.powerbi.com/groups/me/reports/cc93a2f0-e9c1-46cc-a7a7-f4e02f8e2480/99dee66f5ac9ac859acb?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+    { n: 'Programação Produção Fábrica de Metais', u: 'https://app.powerbi.com/groups/me/reports/e772443c-ec5a-4978-ad4b-30a78463bfb8/5a1458e65482b814334c?ctid=8483f5da-75f1-4c68-8a9a-64db18715699&experience=power-bi' },
+  ],
+  sites: [
+    { n: 'GAIA – Base Produtos DECA', u: 'https://gaia-frontend.prd.cloud.dex.co/signin' },
+    { n: 'Segunda Via de Boleto', u: 'https://cobranca.nexx.app.br/cobranca/cedente/loginCedente.action' },
+    { n: 'Briefing Criação – Trade Marketing', u: 'https://forms.office.com/Pages/ResponsePage.aspx?id=2vWDhPF1aEyKmmTbGHFWmS2W4AcE4pFCoHyFsUsc1atURVkySkdZWUJFOEVCTzRJTUNBQk9PTjc1RiQlQCN0PWcu' },
+    { n: 'Lemontech (Viagens CLT)', u: 'https://selfbooking.lemontech.com.br/login.open.mtw' },
+    { n: 'Concur (Despesas CLT)', u: 'https://www.concursolutions.com/' },
+    { n: 'Solicitar Materiais de Merchan', u: 'https://matriz2.autlog.com.br/portalcliente/login/' },
+    { n: 'UniDexco', u: 'https://www.unidexco.dex.co/lms/#/home' },
+    { n: 'Consulta DANFE/XML', u: 'https://consultadanfe.com/' },
+    { n: 'Consulta Código CEST', u: 'https://codigocest.com.br/' },
+    { n: 'Site Oficial DECA', u: 'https://www.deca.com.br/' },
+    { n: 'Catálogos Oficiais', u: 'https://www.deca.com.br/catalogos' },
+  ],
+  intra: [
+    { n: 'Materiais de Comunicação', u: 'https://duratexsa.sharepoint.com/sites/intranet/Institucional/Paginas/Comunica%C3%A7%C3%A3o/Materiais-de-Comunica%C3%A7%C3%A3o.aspx' },
+    { n: 'Logos DECA / DEXCO', u: 'https://duratexsa.sharepoint.com/sites/FacilitiesCSC/Documentos%20Compartilhados/Forms/AllItems.aspx?FolderCTID=0x01200038E48ECF9B6BBC4EA1A627B429C359DF&id=%2Fsites%2FFacilitiesCSC%2FDocumentos%20Compartilhados%2F%23Nova%20Identidade%20de%20Marca&viewid=853c9dad%2D1dd1%2D4a1e%2Db51e%2Db1bc05ab7b2c' },
+    { n: 'Viagens Corporativas', u: 'https://duratexsa.sharepoint.com/sites/intranet/Institucional/SitePages/Viagens-Corporativas.aspx' },
+    { n: 'Simulador LOES', u: 'https://duratexsa.sharepoint.com/sites/BaseLOES/Documentos%20Compartilhados/Forms/AllItems.aspx?viewid=696bdadd%2Da05b%2D4f7c%2Db8f7%2D6f4fc7235cc0&csf=1&CID=027c6824%2D1cdf%2D4e0f%2D94f9%2D05baf710438f&FolderCTID=0x01200086EA18EFE1DE2D4AA7C6C79696F70568' },
+    { n: 'Portal de Normas', u: 'https://duratexsa.sharepoint.com/sites/intranet/Normas/Paginas/Portal-de-Normas.aspx' },
+    { n: 'Pricing (PPC)', u: 'https://duratexsa.sharepoint.com/sites/InterativoCapabilities/Documentos%20Partilhados/Forms/AllItems.aspx?FolderCTID=0x0120002A2626134A7A334A9770C946B92BC5E0&id=%2Fsites%2FInterativoCapabilities%2FDocumentos%20Partilhados%2FPricing' },
+    { n: 'Certificados', u: 'https://duratexsa.sharepoint.com/sites/SGQDecaMetais65/SitePages/Certificados.aspx' },
+    { n: 'Mapa de Tributações', u: 'https://duratexsa.sharepoint.com/sites/tributario.dexco/SitePages/Mapa-de-tributa%C3%A7%C3%A3o-e-cen%C3%A1rios-de-vendas.aspx' },
+  ]
+};
+
+const ALL_LINKS = [
+  ...LINKS.bi.map(l => ({ ...l, cat: 'Power BI', dot: 'dot-bi' })),
+  ...LINKS.sites.map(l => ({ ...l, cat: 'Sites', dot: 'dot-site' })),
+  ...LINKS.intra.map(l => ({ ...l, cat: 'Intranet', dot: 'dot-intra' })),
+];
+
+function mkLink(l, dot) {
+  return `<a class="link-item" href="${l.u}" target="_blank" rel="noopener"><span class="link-dot ${dot}"></span>${l.n}</a>`;
+}
+
+function renderLinks() {
+  document.getElementById('grid-bi').innerHTML    = LINKS.bi.map(l => mkLink(l,'dot-bi')).join('');
+  document.getElementById('grid-sites').innerHTML = LINKS.sites.map(l => mkLink(l,'dot-site')).join('');
+  document.getElementById('grid-intra').innerHTML = LINKS.intra.map(l => mkLink(l,'dot-intra')).join('');
+}
+
+function buscarLinks(q) {
+  const box = document.getElementById('search-results');
+  if (!q.trim()) { box.classList.remove('show'); return; }
+  const term = q.toLowerCase();
+  const res = ALL_LINKS.filter(l => l.n.toLowerCase().includes(term)).slice(0, 8);
+  if (!res.length) { box.classList.remove('show'); return; }
+  box.innerHTML = res.map(l =>
+    `<a class="search-item" href="${l.u}" target="_blank" rel="noopener">
+      <span class="search-item-cat">${l.cat}</span>
+      <span class="search-item-name">${l.n}</span>
+    </a>`
+  ).join('');
+  box.classList.add('show');
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-wrap'))
+    document.getElementById('search-results').classList.remove('show');
+});
+
+renderLinks();
+</script>
+</body>
+</html>
